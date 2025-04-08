@@ -1,8 +1,8 @@
-import netsgiro
+import avtalegiro
 
 
 def test_write_agreements(agreements_data):
-    transmission = netsgiro.parse(agreements_data)
+    transmission = avtalegiro.parse(agreements_data)
 
     result = transmission.to_ocr()
 
@@ -10,7 +10,7 @@ def test_write_agreements(agreements_data):
 
 
 def test_write_payment_request(payment_request_data):
-    transmission = netsgiro.parse(payment_request_data)
+    transmission = avtalegiro.parse(payment_request_data)
 
     result = transmission.to_ocr()
 
@@ -18,7 +18,7 @@ def test_write_payment_request(payment_request_data):
 
 
 def test_write_ocr_giro_transactions(ocr_giro_transactions_data):
-    transmission = netsgiro.parse(ocr_giro_transactions_data)
+    transmission = avtalegiro.parse(ocr_giro_transactions_data)
 
     result = transmission.to_ocr()
 

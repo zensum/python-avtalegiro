@@ -5,7 +5,7 @@ import sphinx_rtd_theme
 
 sys.path.insert(0, os.path.abspath('..'))
 
-import netsgiro  # noqa
+import avtalegiro  # noqa
 
 # -- General configuration ------------------------------------------------
 
@@ -17,11 +17,11 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 master_doc = 'index'
 
-project = 'netsgiro'
+project = 'avtalegiro'
 copyright = '2017-2019, Otovo AS'
 author = 'Otovo AS'
 
-release = netsgiro.__version__
+release = avtalegiro.__version__
 version = '.'.join(release.split('.')[:2])
 
 language = None
@@ -35,14 +35,14 @@ todo_include_todos = False
 # -- Options for HTML output ----------------------------------------------
 
 html_theme = 'sphinx_rtd_theme'
-html_theme_options = {'canonical_url': 'https://netsgiro.readthedocs.io/en/latest/'}
+html_theme_options = {'canonical_url': 'https://avtalegiro.readthedocs.io/en/latest/'}
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 html_static_path = ['_static']
 
 
 # -- Options for HTMLHelp output ------------------------------------------
 
-htmlhelp_basename = 'netsgiro'
+htmlhelp_basename = 'avtalegiro'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -54,7 +54,7 @@ latex_elements = {
     # 'figure_align': 'htbp',
 }
 
-latex_documents = [(master_doc, 'netsgiro.tex', 'netsgiro documentation', 'Otovo AS', 'manual')]
+latex_documents = [(master_doc, 'avtalegiro.tex', 'avtalegiro documentation', 'Otovo AS', 'manual')]
 
 
 # -- Options for doctest extension ----------------------------------------

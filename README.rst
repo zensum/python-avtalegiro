@@ -2,23 +2,23 @@
     :target: https://pypi.org/project/netsgiro/
     :alt: Latest PyPI version
 
-.. image:: https://github.com/otovo/python-netsgiro/actions/workflows/test.yml/badge.svg
-    :target: https://github.com/otovo/python-netsgiro/actions/workflows/test.yml
+.. image:: https://github.com/otovo/python-avtalegiro/actions/workflows/test.yml/badge.svg
+    :target: https://github.com/otovo/python-avtalegiro/actions/workflows/test.yml
     :alt: Github actions test pipeline status
 
 .. image:: https://img.shields.io/readthedocs/netsgiro.svg
    :target: https://netsgiro.readthedocs.io/
    :alt: Read the Docs build status
 
-.. image:: https://img.shields.io/codecov/c/github/otovo/python-netsgiro/master.svg
-   :target: https://codecov.io/gh/otovo/python-netsgiro
+.. image:: https://img.shields.io/codecov/c/github/netsgiro/python-avtalegiro/master.svg
+   :target: https://codecov.io/gh/netsgiro/python-avtalegiro
    :alt: Test coverage
 
 ========
-netsgiro
+avtalegiro
 ========
 
-netsgiro is a Python library for working with `Nets <https://www.nets.eu/>`_
+avtalegiro is a Python library for working with `Avtalegiro <https://www.avtalegiro.no/>`_
 AvtaleGiro and OCR Giro files.
 
 AvtaleGiro is a direct debit solution that is in widespread use in Norway, with
@@ -27,7 +27,7 @@ Nets and Norwegian banks to update payees on recent deposits to their bank
 accounts. In combination, AvtaleGiro and OCR Giro allows for a high level of
 automation of invoicing and payment processing.
 
-The netsgiro library supports:
+The avtalegiro library supports:
 
 - Parsing AvtaleGiro agreements
 - Creating AvtaleGiro payment requests
@@ -43,7 +43,7 @@ For details and code examples, see `the netsgiro documentation
 
 For further details, please refer to the official
 `AvtaleGiro <https://www.avtalegiro.no/>`_ and
-`OCR Giro <https://www.nets.eu/no-nb/losninger/inn-og-utbetalinger/ocrgiro/Pages/default.aspx>`_
+`OCR Giro <https://www.mastercardpaymentservices.com>`_
 documentation from Nets.
 
 
@@ -59,5 +59,5 @@ Project resources
 =================
 
 - `Documentation <https://netsgiro.readthedocs.io/>`_
-- `Source code <https://github.com/otovo/python-netsgiro>`_
-- `Issue tracker <https://github.com/otovo/python-netsgiro/issues>`_
+- `Source code <https://github.com/zensum/python-avtalegiro>`_
+- `Issue tracker <https://github.com/zensum/python-avtalegiro/issues>`_

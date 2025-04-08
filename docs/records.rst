@@ -2,7 +2,7 @@
 Records API
 ===========
 
-.. module:: netsgiro.records
+.. module:: avtalegiro.records
 
 The records API is the lower level API. It parses each line of "OCR" text
 input into a record object. A record object also knows about its OCR
@@ -48,11 +48,11 @@ For the purpose of the following example we use the following input data:
 ... NY000089000000060000002200000000000000600170604000000000000000000000000000000000
 ... '''.strip()  # noqa
 
-:meth:`netsgiro.records.parse` parses the input and returns a record object for
+:meth:`avtalegiro.records.parse` parses the input and returns a record object for
 each line of input:
 
->>> import netsgiro.records
->>> records = netsgiro.records.parse(data)
+>>> import avtalegiro.records
+>>> records = avtalegiro.records.parse(data)
 >>> len(records)
 22
 >>> pprint(records)
@@ -100,7 +100,7 @@ You can also convert the record back to an OCR string:
 'NY210088000000060000002000000000000000600170604170604000000000000000000000000000'
 
 For details on the semantics of each field, please refer to Nets'
-documentation. The :file:`reference` directory of the netsgiro Git repo
+documentation. The :file:`reference` directory of the avtalegiro Git repo
 contains the file format specifications, which is a good place to start.
 
 

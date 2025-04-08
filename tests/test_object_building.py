@@ -3,18 +3,18 @@ from decimal import Decimal
 
 import pytest
 
-import netsgiro
+import avtalegiro
 
 
 def test_transmission_with_single_payment_request_transaction():
-    transmission = netsgiro.Transmission(
+    transmission = avtalegiro.Transmission(
         number='1703231',
         data_transmitter='01234567',
-        data_recipient=netsgiro.NETS_ID,
+        data_recipient=avtalegiro.NETS_ID,
     )
     assignment = transmission.add_assignment(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        assignment_type=netsgiro.AssignmentType.TRANSACTIONS,
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        assignment_type=avtalegiro.AssignmentType.TRANSACTIONS,
         number='0323001',
         account='15035382752',
     )
@@ -52,7 +52,7 @@ def test_transmission_with_single_payment_request_transaction():
 
     assert transmission_start.transmission_number == '1703231'
     assert transmission_start.data_transmitter == '01234567'
-    assert transmission_start.data_recipient == netsgiro.NETS_ID
+    assert transmission_start.data_recipient == avtalegiro.NETS_ID
     assert transmission_end.nets_date == date(2017, 4, 6)
 
     assert assignment_start.assignment_number == '0323001'
@@ -93,14 +93,14 @@ def test_transmission_add_payment_cancellation():
     """
     Test adding a payment cancellation.
     """
-    transmission = netsgiro.Transmission(
+    transmission = avtalegiro.Transmission(
         number='1703231',
         data_transmitter='01234567',
-        data_recipient=netsgiro.NETS_ID,
+        data_recipient=avtalegiro.NETS_ID,
     )
     assignment = transmission.add_assignment(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        assignment_type=netsgiro.AssignmentType.AVTALEGIRO_CANCELLATIONS,
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        assignment_type=avtalegiro.AssignmentType.AVTALEGIRO_CANCELLATIONS,
         number='0323001',
         account='15035382752',
     )
@@ -119,7 +119,7 @@ def test_transmission_add_payment_cancellation():
 
     assert transmission_start.transmission_number == '1703231'
     assert transmission_start.data_transmitter == '01234567'
-    assert transmission_start.data_recipient == netsgiro.NETS_ID
+    assert transmission_start.data_recipient == avtalegiro.NETS_ID
     assert transmission_end.nets_date == date(2017, 4, 6)
 
     assert assignment_start.assignment_number == '0323001'
@@ -138,28 +138,28 @@ def test_transmission_add_payment_cancellation_assertions():
     """
     Test add_payment_cancellation guards.
     """
-    transmission = netsgiro.Transmission(
+    transmission = avtalegiro.Transmission(
         number='1703231',
         data_transmitter='01234567',
-        data_recipient=netsgiro.NETS_ID,
+        data_recipient=avtalegiro.NETS_ID,
     )
     good_data = {
-        'service_code': netsgiro.ServiceCode.AVTALEGIRO,
-        'assignment_type': netsgiro.AssignmentType.AVTALEGIRO_CANCELLATIONS,
+        'service_code': avtalegiro.ServiceCode.AVTALEGIRO,
+        'assignment_type': avtalegiro.AssignmentType.AVTALEGIRO_CANCELLATIONS,
         'number': '0323001',
         'account': '15035382752',
     }
 
     # Test wrong service code
     bad_service_code_assignment = transmission.add_assignment(
-        **{**good_data, **{'service_code': netsgiro.ServiceCode.OCR_GIRO}}
+        **{**good_data, **{'service_code': avtalegiro.ServiceCode.OCR_GIRO}}
     )
     with pytest.raises(AssertionError, match='Can only add cancellation to AvtaleGiro assignments'):
         bad_service_code_assignment.add_payment_cancellation(**assignment_data)
 
     # Test wrong assignment type
     bad_assignment_type_assignment = transmission.add_assignment(
-        **{**good_data, **{'assignment_type': netsgiro.AssignmentType.AVTALEGIRO_AGREEMENTS}}
+        **{**good_data, **{'assignment_type': avtalegiro.AssignmentType.AVTALEGIRO_AGREEMENTS}}
     )
     with pytest.raises(
         AssertionError, match='Can only add cancellation to cancellation assignments'

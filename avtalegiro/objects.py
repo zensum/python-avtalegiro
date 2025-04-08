@@ -10,14 +10,14 @@ from typing import TypeVar, Union, cast
 from attrs import Factory, define, field
 from attrs.validators import instance_of, optional
 
-from netsgiro.converters import (
+from avtalegiro.converters import (
     to_assignment_type,
     to_avtalegiro_registration_type,
     to_service_code,
     to_transaction_type,
 )
-from netsgiro.enums import AssignmentType, ServiceCode, TransactionType
-from netsgiro.records import (
+from avtalegiro.enums import AssignmentType, ServiceCode, TransactionType
+from avtalegiro.records import (
     AssignmentEnd,
     AssignmentStart,
     AvtaleGiroAgreement,
@@ -29,13 +29,13 @@ from netsgiro.records import (
     TransmissionEnd,
     TransmissionStart,
 )
-from netsgiro.records import parse as records_parse
-from netsgiro.validators import str_of_length
-from netsgiro.validators import validate_due_date as _validate_due_date
+from avtalegiro.records import parse as records_parse
+from avtalegiro.validators import str_of_length
+from avtalegiro.validators import validate_due_date as _validate_due_date
 
 if TYPE_CHECKING:
-    from netsgiro.enums import AvtaleGiroRegistrationType
-    from netsgiro.records import Record
+    from avtalegiro.enums import AvtaleGiroRegistrationType
+    from avtalegiro.records import Record
 
 __all__: List[str] = [
     'Transmission',
@@ -59,7 +59,7 @@ class Transmission:
     """Transmission is the top-level object.
 
     An OCR file contains a single transmission. The transmission can contain
-    multiple :class:`~netsgiro.Assignment` objects of various types.
+    multiple :class:`~avtalegiro.Assignment` objects of various types.
     """
 
     #: Data transmitters unique enumeration of the transmission. String of 7 digits.
@@ -219,10 +219,10 @@ TR = TypeVar('TR', bound=TransactionRecord)
 class Assignment:
     """An Assignment groups multiple transactions within a transmission.
 
-    Use :meth:`netsgiro.Transmission.add_assignment` to create assignments.
+    Use :meth:`avtalegiro.Transmission.add_assignment` to create assignments.
     """
 
-    #: The service code. One of :class:`~netsgiro.ServiceCode`.
+    #: The service code. One of :class:`~avtalegiro.ServiceCode`.
     service_code: ServiceCode = field(converter=to_service_code)
 
     #: The transaction type. One of :class:`~TransactionType`.
@@ -246,8 +246,8 @@ class Assignment:
         default=None, validator=optional(instance_of(datetime.date))
     )
 
-    #: List of transaction objects, like :class:`~netsgiro.Agreement`,
-    #: :class:`~netsgiro.PaymentRequest`, :class:`~netsgiro.Transaction`.
+    #: List of transaction objects, like :class:`~avtalegiro.Agreement`,
+    #: :class:`~avtalegiro.PaymentRequest`, :class:`~avtalegiro.Transaction`.
     transactions: TS = field(default=Factory(list), repr=False)
 
     _next_transaction_number: int = field(default=1, init=False)
@@ -413,7 +413,7 @@ class Assignment:
         """Add an AvtaleGiro cancellation to the assignment.
 
         The assignment must have service code
-        :attr:`~netsgiro.ServiceCode.AVTALEGIRO` and assignment type
+        :attr:`~avtalegiro.ServiceCode.AVTALEGIRO` and assignment type
         :attr:`~AssignmentType.AVTALEGIRO_CANCELLATIONS`.
 
         Otherwise, the cancellation must be identical to the payment request it
@@ -514,7 +514,7 @@ class Agreement:
     created by Nets.
     """
 
-    #: The service code. One of :class:`~netsgiro.ServiceCode`.
+    #: The service code. One of :class:`~avtalegiro.ServiceCode`.
     service_code: ServiceCode = field(converter=to_service_code)
 
     #: Transaction number. Unique and ordered within an assignment.
@@ -567,12 +567,12 @@ class PaymentRequest:
     """PaymentRequest contains an AvtaleGiro payment request or cancellation.
 
     To create a transaction, you will normally use the helper methods on
-    :class:`~netsgiro.Assignment`:
-    :meth:`~netsgiro.Assignment.add_payment_request` and
-    :meth:`~netsgiro.Assignment.add_payment_cancellation`.
+    :class:`~avtalegiro.Assignment`:
+    :meth:`~avtalegiro.Assignment.add_payment_request` and
+    :meth:`~avtalegiro.Assignment.add_payment_cancellation`.
     """
 
-    #: The service code. One of :class:`~netsgiro.ServiceCode`.
+    #: The service code. One of :class:`~avtalegiro.ServiceCode`.
     service_code: ServiceCode = field(converter=to_service_code)
 
     #: The transaction type. One of :class:`~TransactionType`.
@@ -664,11 +664,11 @@ class Transaction:
     """Transaction contains an OCR Giro transaction.
 
     Transactions are found in assignments with the service code
-    :attr:`~netsgiro.ServiceCode.OCR_GIRO` type, which are only
+    :attr:`~avtalegiro.ServiceCode.OCR_GIRO` type, which are only
     created by Nets.
     """
 
-    #: The service code. One of :class:`~netsgiro.ServiceCode`.
+    #: The service code. One of :class:`~avtalegiro.ServiceCode`.
     service_code: ServiceCode = field(converter=to_service_code)
 
     #: The transaction type. One of :class:`~TransactionType`.

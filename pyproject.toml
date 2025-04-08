@@ -1,14 +1,14 @@
 [tool.poetry]
-name = "netsgiro"
-version = "2.0.1"
+name = "avtalegiro"
+version = "2.0.2"
 description = "File parsers for Nets AvtaleGiro and OCR Giro"
-homepage = 'https://pypi.org/project/netsgiro/'
-repository = 'https://github.com/otovo/python-netsgiro'
-authors = ["Otovo AS <jodal+netsgiro@otovo.com>"]
+homepage = 'https://pypi.org/project/avtalegiro/'
+repository = 'https://github.com/otovo/python-avtalegiro'
+authors = ["Otovo AS <jodal+avtalegiro@otovo.com>"]
 license = 'Apache License, Version 2.0'
 readme = 'README.rst'
 keywords = ['avtalegiro', 'ocr', 'giro']
-packages = [{ include = 'netsgiro' }]
+packages = [{ include = 'avtalegiro' }]
 classifiers=[
     'Development Status :: 5 - Production/Stable',
     'Intended Audience :: Developers',
@@ -27,8 +27,8 @@ include = [
 ]
 
 [tool.poetry.urls]
-"Docs" = "https://netsgiro.readthedocs.io/"
-"Changelog" = "https://netsgiro.readthedocs.io/en/latest/changelog/"
+"Docs" = "https://avtalegiro.readthedocs.io/"
+"Changelog" = "https://avtalegiro.readthedocs.io/en/latest/changelog/"
 
 [tool.poetry.dependencies]
 python = ">=3.7"
@@ -72,7 +72,7 @@ profile = "black"
 line_length = 100
 
 [tool.coverage.run]
-source = ['netsgiro']
+source = ['avtalegiro']
 omit = []
 branch = true
 

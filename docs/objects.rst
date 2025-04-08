@@ -2,7 +2,7 @@
 Objects API
 ===========
 
-.. module:: netsgiro
+.. module:: avtalegiro
 
 The objects API is the higher level API. It parses the "OCR" file into an
 object structure that for most use cases is more pleasant to work with than the

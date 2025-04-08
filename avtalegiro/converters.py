@@ -2,7 +2,7 @@
 import datetime
 from typing import Any, Callable, Optional, TypeVar, Union
 
-from netsgiro.enums import (
+from avtalegiro.enums import (
     AssignmentType,
     AvtaleGiroRegistrationType,
     RecordType,

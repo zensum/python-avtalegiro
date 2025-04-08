@@ -28,31 +28,31 @@ class ServiceCode(IntEnum):
 class RecordType(IntEnum):
     """Record types tell what type of record this is."""
 
-    #: See :class:`netsgiro.TransmissionStart`.
+    #: See :class:`avtalegiro.TransmissionStart`.
     TRANSMISSION_START = 10
 
-    #: See :class:`netsgiro.AssignmentStart`.
+    #: See :class:`avtalegiro.AssignmentStart`.
     ASSIGNMENT_START = 20
 
-    #: See :class:`netsgiro.TransactionAmountItem1`.
+    #: See :class:`avtalegiro.TransactionAmountItem1`.
     TRANSACTION_AMOUNT_ITEM_1 = 30
 
-    #: See :class:`netsgiro.TransactionAmountItem2`.
+    #: See :class:`avtalegiro.TransactionAmountItem2`.
     TRANSACTION_AMOUNT_ITEM_2 = 31
 
-    #: See :class:`netsgiro.TransactionAmountItem3`.
+    #: See :class:`avtalegiro.TransactionAmountItem3`.
     TRANSACTION_AMOUNT_ITEM_3 = 32
 
-    #: See :class:`netsgiro.TransactionSpecification`.
+    #: See :class:`avtalegiro.TransactionSpecification`.
     TRANSACTION_SPECIFICATION = 49
 
-    #: See :class:`netsgiro.TransactionAgreements`.
+    #: See :class:`avtalegiro.TransactionAgreements`.
     TRANSACTION_AGREEMENTS = 70
 
-    #: See :class:`netsgiro.AssignmentEnd`.
+    #: See :class:`avtalegiro.AssignmentEnd`.
     ASSIGNMENT_END = 88
 
-    #: See :class:`netsgiro.TransmissionEnd`.
+    #: See :class:`avtalegiro.TransmissionEnd`.
     TRANSMISSION_END = 89
 
 

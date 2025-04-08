@@ -2,16 +2,16 @@ from datetime import date
 
 import pytest
 
-import netsgiro
-import netsgiro.records
+import avtalegiro
+import avtalegiro.records
 
 
 def test_transmission_start():
-    record = netsgiro.records.TransmissionStart(
-        service_code=netsgiro.ServiceCode.NONE,
+    record = avtalegiro.records.TransmissionStart(
+        service_code=avtalegiro.ServiceCode.NONE,
         transmission_number='1000081',
         data_transmitter='55555555',
-        data_recipient=netsgiro.NETS_ID,
+        data_recipient=avtalegiro.NETS_ID,
     )
 
     assert (
@@ -35,8 +35,8 @@ def test_transmission_start_with_invalid_data(
     transmission_number, data_transmitter, data_recipient, exc
 ):
     with pytest.raises(exc):
-        netsgiro.records.TransmissionStart(
-            service_code=netsgiro.ServiceCode.NONE,
+        avtalegiro.records.TransmissionStart(
+            service_code=avtalegiro.ServiceCode.NONE,
             transmission_number=transmission_number,
             data_transmitter=data_transmitter,
             data_recipient=data_recipient,
@@ -44,8 +44,8 @@ def test_transmission_start_with_invalid_data(
 
 
 def test_transmission_end():
-    record = netsgiro.records.TransmissionEnd(
-        service_code=netsgiro.ServiceCode.NONE,
+    record = avtalegiro.records.TransmissionEnd(
+        service_code=avtalegiro.ServiceCode.NONE,
         num_transactions=6,
         num_records=22,
         total_amount=600,
@@ -69,8 +69,8 @@ def test_transmission_end():
 )
 def test_transmission_end_with_invalid_data(num_tx, num_records, total_amount, nets_date, exc):
     with pytest.raises(exc):
-        netsgiro.records.TransmissionEnd(
-            service_code=netsgiro.ServiceCode.NONE,
+        avtalegiro.records.TransmissionEnd(
+            service_code=avtalegiro.ServiceCode.NONE,
             num_transactions=num_tx,
             num_records=num_records,
             total_amount=total_amount,
@@ -79,9 +79,9 @@ def test_transmission_end_with_invalid_data(num_tx, num_records, total_amount, n
 
 
 def test_assignment_start_for_avtalegiro_payment_requests():
-    record = netsgiro.records.AssignmentStart(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        assignment_type=netsgiro.AssignmentType.TRANSACTIONS,
+    record = avtalegiro.records.AssignmentStart(
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        assignment_type=avtalegiro.AssignmentType.TRANSACTIONS,
         assignment_number='4000086',
         assignment_account='88888888888',
         agreement_id='000000111',
@@ -94,9 +94,9 @@ def test_assignment_start_for_avtalegiro_payment_requests():
 
 
 def test_assignment_start_for_avtalegiro_agreements():
-    record = netsgiro.records.AssignmentStart(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        assignment_type=netsgiro.AssignmentType.AVTALEGIRO_AGREEMENTS,
+    record = avtalegiro.records.AssignmentStart(
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        assignment_type=avtalegiro.AssignmentType.AVTALEGIRO_AGREEMENTS,
         assignment_number='4000086',
         assignment_account='88888888888',
         agreement_id=None,
@@ -121,9 +121,9 @@ def test_assignment_start_for_avtalegiro_agreements():
 )
 def test_assignment_start_with_invalid_data(number, account, agreement_id, exc):
     with pytest.raises(exc):
-        netsgiro.records.AssignmentStart(
-            service_code=netsgiro.ServiceCode.AVTALEGIRO,
-            assignment_type=netsgiro.AssignmentType.TRANSACTIONS,
+        avtalegiro.records.AssignmentStart(
+            service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+            assignment_type=avtalegiro.AssignmentType.TRANSACTIONS,
             assignment_number=number,
             assignment_account=account,
             agreement_id=agreement_id,
@@ -131,9 +131,9 @@ def test_assignment_start_with_invalid_data(number, account, agreement_id, exc):
 
 
 def test_assignment_end_for_avtalegiro_payment_requests():
-    record = netsgiro.records.AssignmentEnd(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        assignment_type=netsgiro.AssignmentType.TRANSACTIONS,
+    record = avtalegiro.records.AssignmentEnd(
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        assignment_type=avtalegiro.AssignmentType.TRANSACTIONS,
         num_transactions=6,
         num_records=20,
         total_amount=600,
@@ -148,9 +148,9 @@ def test_assignment_end_for_avtalegiro_payment_requests():
 
 
 def test_assignment_end_for_avtalegiro_agreements():
-    record = netsgiro.records.AssignmentEnd(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        assignment_type=netsgiro.AssignmentType.AVTALEGIRO_AGREEMENTS,
+    record = avtalegiro.records.AssignmentEnd(
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        assignment_type=avtalegiro.AssignmentType.AVTALEGIRO_AGREEMENTS,
         num_transactions=6,
         num_records=20,
     )
@@ -162,9 +162,9 @@ def test_assignment_end_for_avtalegiro_agreements():
 
 
 def test_transaction_amount_item_1_for_ocr_giro_transactions():
-    record = netsgiro.records.TransactionAmountItem1(
-        service_code=netsgiro.ServiceCode.OCR_GIRO,
-        transaction_type=netsgiro.TransactionType.FROM_GIRO_DEBITED_ACCOUNT,
+    record = avtalegiro.records.TransactionAmountItem1(
+        service_code=avtalegiro.ServiceCode.OCR_GIRO,
+        transaction_type=avtalegiro.TransactionType.FROM_GIRO_DEBITED_ACCOUNT,
         transaction_number=1,
         nets_date=date(1992, 1, 20),
         amount=102000,
@@ -183,9 +183,9 @@ def test_transaction_amount_item_1_for_ocr_giro_transactions():
 
 
 def test_transaction_amount_item_1_for_avtalegiro_payment_requests():
-    record = netsgiro.records.TransactionAmountItem1(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        transaction_type=netsgiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
+    record = avtalegiro.records.TransactionAmountItem1(
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        transaction_type=avtalegiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
         transaction_number=1,
         nets_date=date(2004, 6, 17),
         amount=100,
@@ -200,9 +200,9 @@ def test_transaction_amount_item_1_for_avtalegiro_payment_requests():
 
 def test_transaction_amount_item_1_raises_if_kid_is_too_long():
     with pytest.raises(ValueError, match='kid must be at most 25 chars'):
-        netsgiro.records.TransactionAmountItem1(
-            service_code=netsgiro.ServiceCode.AVTALEGIRO,
-            transaction_type=netsgiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
+        avtalegiro.records.TransactionAmountItem1(
+            service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+            transaction_type=avtalegiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
             transaction_number=1,
             nets_date=date(2004, 6, 17),
             amount=100,
@@ -211,9 +211,9 @@ def test_transaction_amount_item_1_raises_if_kid_is_too_long():
 
 
 def test_transaction_amount_item_2_for_avtalegiro_payment_request():
-    record = netsgiro.records.TransactionAmountItem2(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        transaction_type=netsgiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
+    record = avtalegiro.records.TransactionAmountItem2(
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        transaction_type=avtalegiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
         transaction_number=1,
         reference=None,
         payer_name='NAVN',
@@ -234,24 +234,24 @@ def test_transaction_amount_item_2_for_avtalegiro_payment_request():
     ],
 )
 def test_transaction_amount_item_2_payer_name_behavior(payer_name, expected):
-    original = netsgiro.records.TransactionAmountItem2(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        transaction_type=netsgiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
+    original = avtalegiro.records.TransactionAmountItem2(
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        transaction_type=avtalegiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
         transaction_number=1,
         reference=None,
         payer_name=payer_name,
     )
 
     ocr = original.to_ocr()
-    record = netsgiro.records.TransactionAmountItem2.from_string(ocr)
+    record = avtalegiro.records.TransactionAmountItem2.from_string(ocr)
 
     assert record.payer_name == expected
 
 
 def test_transaction_amount_item_2_for_ocr_giro_transactions():
-    record = netsgiro.records.TransactionAmountItem2(
-        service_code=netsgiro.ServiceCode.OCR_GIRO,
-        transaction_type=netsgiro.TransactionType.FROM_GIRO_DEBITED_ACCOUNT,
+    record = avtalegiro.records.TransactionAmountItem2(
+        service_code=avtalegiro.ServiceCode.OCR_GIRO,
+        transaction_type=avtalegiro.TransactionType.FROM_GIRO_DEBITED_ACCOUNT,
         transaction_number=1,
         reference='099038562',
         form_number='9636827194',
@@ -266,9 +266,9 @@ def test_transaction_amount_item_2_for_ocr_giro_transactions():
 
 
 def test_transaction_amount_item_2_for_ocr_giro_without_bank_date():
-    record = netsgiro.records.TransactionAmountItem2(
-        service_code=netsgiro.ServiceCode.OCR_GIRO,
-        transaction_type=netsgiro.TransactionType.FROM_GIRO_DEBITED_ACCOUNT,
+    record = avtalegiro.records.TransactionAmountItem2(
+        service_code=avtalegiro.ServiceCode.OCR_GIRO,
+        transaction_type=avtalegiro.TransactionType.FROM_GIRO_DEBITED_ACCOUNT,
         transaction_number=1,
         reference='099038562',
         form_number='9636827194',
@@ -283,9 +283,9 @@ def test_transaction_amount_item_2_for_ocr_giro_without_bank_date():
 
 
 def test_transaction_amount_item_3_for_ocr_giro_transactions():
-    record = netsgiro.records.TransactionAmountItem3(
-        service_code=netsgiro.ServiceCode.OCR_GIRO,
-        transaction_type=netsgiro.TransactionType.PURCHASE_WITH_TEXT,
+    record = avtalegiro.records.TransactionAmountItem3(
+        service_code=avtalegiro.ServiceCode.OCR_GIRO,
+        transaction_type=avtalegiro.TransactionType.PURCHASE_WITH_TEXT,
         transaction_number=1,
         text='Foo bar baz',
     )
@@ -304,33 +304,33 @@ def test_transaction_amount_item_3_for_ocr_giro_transactions():
     ],
 )
 def test_transaction_amount_item_3_text_behavior(text, expected):
-    original = netsgiro.records.TransactionAmountItem3(
-        service_code=netsgiro.ServiceCode.OCR_GIRO,
-        transaction_type=netsgiro.TransactionType.PURCHASE_WITH_TEXT,
+    original = avtalegiro.records.TransactionAmountItem3(
+        service_code=avtalegiro.ServiceCode.OCR_GIRO,
+        transaction_type=avtalegiro.TransactionType.PURCHASE_WITH_TEXT,
         transaction_number=1,
         text=text,
     )
 
     ocr = original.to_ocr()
-    record = netsgiro.records.TransactionAmountItem3.from_string(ocr)
+    record = avtalegiro.records.TransactionAmountItem3.from_string(ocr)
 
     assert record.text == expected
 
 
 def test_transaction_amount_item_3_raises_if_text_is_too_long():
     with pytest.raises(ValueError, match='text must be at most 40 chars'):
-        netsgiro.records.TransactionAmountItem3(
-            service_code=netsgiro.ServiceCode.OCR_GIRO,
-            transaction_type=netsgiro.TransactionType.PURCHASE_WITH_TEXT,
+        avtalegiro.records.TransactionAmountItem3(
+            service_code=avtalegiro.ServiceCode.OCR_GIRO,
+            transaction_type=avtalegiro.TransactionType.PURCHASE_WITH_TEXT,
             transaction_number=1,
             text='Fooo' * 12,  # Max 40 chars
         )
 
 
 def test_transaction_specification_for_avtalegiro_payment_request():
-    record = netsgiro.records.TransactionSpecification(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        transaction_type=netsgiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
+    record = avtalegiro.records.TransactionSpecification(
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        transaction_type=avtalegiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
         transaction_number=1,
         line_number=1,
         column_number=1,
@@ -345,9 +345,9 @@ def test_transaction_specification_for_avtalegiro_payment_request():
 
 def test_transaction_specification_from_longer_text():
     records = list(
-        netsgiro.records.TransactionSpecification.from_text(
-            service_code=netsgiro.ServiceCode.AVTALEGIRO,
-            transaction_type=netsgiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
+        avtalegiro.records.TransactionSpecification.from_text(
+            service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+            transaction_type=avtalegiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
             transaction_number=1,
             text=' Gjelder Faktura: 168837  Dato: 19/03/04\nFoo bar baz quux',
         )
@@ -384,9 +384,9 @@ def test_transaction_specification_from_longer_text():
     ],
 )
 def test_transaction_specification_text_behavior(text, expected):
-    original = netsgiro.records.TransactionSpecification(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        transaction_type=netsgiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
+    original = avtalegiro.records.TransactionSpecification(
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        transaction_type=avtalegiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
         transaction_number=1,
         line_number=1,
         column_number=1,
@@ -396,7 +396,7 @@ def test_transaction_specification_text_behavior(text, expected):
     assert original.text == expected
 
     ocr = original.to_ocr()
-    record = netsgiro.records.TransactionSpecification.from_string(ocr)
+    record = avtalegiro.records.TransactionSpecification.from_string(ocr)
 
     assert len(record.text) == 40
     assert record.text == expected
@@ -404,9 +404,9 @@ def test_transaction_specification_text_behavior(text, expected):
 
 def test_transaction_specification_raises_if_text_is_too_long():
     with pytest.raises(ValueError, match='text must be at most 40 chars'):
-        netsgiro.records.TransactionSpecification(
-            service_code=netsgiro.ServiceCode.AVTALEGIRO,
-            transaction_type=netsgiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
+        avtalegiro.records.TransactionSpecification(
+            service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+            transaction_type=avtalegiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
             transaction_number=1,
             line_number=1,
             column_number=1,
@@ -415,11 +415,11 @@ def test_transaction_specification_raises_if_text_is_too_long():
 
 
 def test_avtalegiro_agreement():
-    record = netsgiro.records.AvtaleGiroAgreement(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        transaction_type=netsgiro.TransactionType.AVTALEGIRO_AGREEMENT,
+    record = avtalegiro.records.AvtaleGiroAgreement(
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        transaction_type=avtalegiro.TransactionType.AVTALEGIRO_AGREEMENT,
         transaction_number=1,
-        registration_type=netsgiro.AvtaleGiroRegistrationType.NEW_OR_UPDATED_AGREEMENT,
+        registration_type=avtalegiro.AvtaleGiroRegistrationType.NEW_OR_UPDATED_AGREEMENT,
         kid='008000011688373',
         notify=False,
     )
@@ -432,11 +432,11 @@ def test_avtalegiro_agreement():
 
 def test_avtalegiro_agreement_raises_if_kid_is_too_long():
     with pytest.raises(ValueError, match='kid must be at most 25 chars'):
-        netsgiro.records.AvtaleGiroAgreement(
-            service_code=netsgiro.ServiceCode.AVTALEGIRO,
-            transaction_type=netsgiro.TransactionType.AVTALEGIRO_AGREEMENT,
+        avtalegiro.records.AvtaleGiroAgreement(
+            service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+            transaction_type=avtalegiro.TransactionType.AVTALEGIRO_AGREEMENT,
             transaction_number=1,
-            registration_type=netsgiro.AvtaleGiroRegistrationType.NEW_OR_UPDATED_AGREEMENT,
+            registration_type=avtalegiro.AvtaleGiroRegistrationType.NEW_OR_UPDATED_AGREEMENT,
             kid='008000011688373' * 4,  # Max 25 chars
             notify=False,
         )

@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Any, Callable
 from attr import Attribute
 from attr.validators import instance_of
 
-from netsgiro.utils import OSLO_TZ, get_minimum_due_date
+from avtalegiro.utils import OSLO_TZ, get_minimum_due_date
 
 if TYPE_CHECKING:
     from datetime import date

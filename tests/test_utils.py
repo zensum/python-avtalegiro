@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 import holidays
 import pytest
 
-from netsgiro.utils import OSLO_TZ, get_minimum_due_date
-from netsgiro.validators import validate_due_date
+from avtalegiro.utils import OSLO_TZ, get_minimum_due_date
+from avtalegiro.validators import validate_due_date
 
 monday = datetime(2022, 3, 28, 13, 59, tzinfo=OSLO_TZ)
 

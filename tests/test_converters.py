@@ -1,6 +1,6 @@
 import pytest
 
-from netsgiro.converters import to_bool, truthy_or_none, value_or_none
+from avtalegiro.converters import to_bool, truthy_or_none, value_or_none
 
 values = [
     (int, None, None, None),

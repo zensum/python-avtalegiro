@@ -4,7 +4,7 @@ from datetime import date
 from hypothesis import given
 from hypothesis import strategies as st
 
-import netsgiro.records
+import avtalegiro.records
 
 
 def dates(min_value=date(1969, 1, 1), max_value=date(2068, 12, 31)):
@@ -21,17 +21,17 @@ def digits(min_size=10, max_size=None):
 
 @given(tn=digits(7), dt=digits(8), dr=digits(8))
 def test_transmission_start(tn, dt, dr):
-    original = netsgiro.records.TransmissionStart(
-        service_code=netsgiro.ServiceCode.NONE,
+    original = avtalegiro.records.TransmissionStart(
+        service_code=avtalegiro.ServiceCode.NONE,
         transmission_number=tn,
         data_transmitter=dt,
         data_recipient=dr,
     )
 
     ocr = original.to_ocr()
-    record = netsgiro.records.TransmissionStart.from_string(ocr)
+    record = avtalegiro.records.TransmissionStart.from_string(ocr)
 
-    assert record.service_code == netsgiro.ServiceCode.NONE
+    assert record.service_code == avtalegiro.ServiceCode.NONE
     assert record.transmission_number == tn
     assert record.data_transmitter == dt
     assert record.data_recipient == dr
@@ -44,8 +44,8 @@ def test_transmission_start(tn, dt, dr):
     nd=dates(),
 )
 def test_transmission_end(nt, nr, ta, nd):
-    original = netsgiro.records.TransmissionEnd(
-        service_code=netsgiro.ServiceCode.NONE,
+    original = avtalegiro.records.TransmissionEnd(
+        service_code=avtalegiro.ServiceCode.NONE,
         num_transactions=nt,
         num_records=nr,
         total_amount=ta,
@@ -53,9 +53,9 @@ def test_transmission_end(nt, nr, ta, nd):
     )
 
     ocr = original.to_ocr()
-    record = netsgiro.records.TransmissionEnd.from_string(ocr)
+    record = avtalegiro.records.TransmissionEnd.from_string(ocr)
 
-    assert record.service_code == netsgiro.ServiceCode.NONE
+    assert record.service_code == avtalegiro.ServiceCode.NONE
     assert record.num_transactions == nt
     assert record.num_records == nr
     assert record.total_amount == ta
@@ -64,19 +64,19 @@ def test_transmission_end(nt, nr, ta, nd):
 
 @given(an=digits(7), aa=digits(11), ai=digits(9))
 def test_assignment_start_for_avtalegiro_payment_requests(an, aa, ai):
-    original = netsgiro.records.AssignmentStart(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        assignment_type=netsgiro.AssignmentType.TRANSACTIONS,
+    original = avtalegiro.records.AssignmentStart(
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        assignment_type=avtalegiro.AssignmentType.TRANSACTIONS,
         assignment_number=an,
         assignment_account=aa,
         agreement_id=ai,
     )
 
     ocr = original.to_ocr()
-    record = netsgiro.records.AssignmentStart.from_string(ocr)
+    record = avtalegiro.records.AssignmentStart.from_string(ocr)
 
-    assert record.service_code == netsgiro.ServiceCode.AVTALEGIRO
-    assert record.assignment_type == netsgiro.AssignmentType.TRANSACTIONS
+    assert record.service_code == avtalegiro.ServiceCode.AVTALEGIRO
+    assert record.assignment_type == avtalegiro.AssignmentType.TRANSACTIONS
     assert record.agreement_id == ai
     assert record.assignment_number == an
     assert record.assignment_account == aa
@@ -84,16 +84,16 @@ def test_assignment_start_for_avtalegiro_payment_requests(an, aa, ai):
 
 @given(an=digits(7), aa=digits(11))
 def test_assignment_start_for_avtalegiro_agreements(an, aa):
-    original = netsgiro.records.AssignmentStart(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        assignment_type=netsgiro.AssignmentType.AVTALEGIRO_AGREEMENTS,
+    original = avtalegiro.records.AssignmentStart(
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        assignment_type=avtalegiro.AssignmentType.AVTALEGIRO_AGREEMENTS,
         assignment_number=an,
         assignment_account=aa,
         agreement_id=None,
     )
 
     ocr = original.to_ocr()
-    record = netsgiro.records.AssignmentStart.from_string(ocr)
+    record = avtalegiro.records.AssignmentStart.from_string(ocr)
 
     assert record.agreement_id is None
     assert record.assignment_number == an
@@ -108,9 +108,9 @@ def test_assignment_start_for_avtalegiro_agreements(an, aa):
     nd2=dates(),
 )
 def test_assignment_end_for_avtalegiro_payment_requests(nt, nr, ta, nd1, nd2):
-    original = netsgiro.records.AssignmentEnd(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        assignment_type=netsgiro.AssignmentType.TRANSACTIONS,
+    original = avtalegiro.records.AssignmentEnd(
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        assignment_type=avtalegiro.AssignmentType.TRANSACTIONS,
         num_transactions=nt,
         num_records=nr,
         total_amount=ta,
@@ -119,7 +119,7 @@ def test_assignment_end_for_avtalegiro_payment_requests(nt, nr, ta, nd1, nd2):
     )
 
     ocr = original.to_ocr()
-    record = netsgiro.records.AssignmentEnd.from_string(ocr)
+    record = avtalegiro.records.AssignmentEnd.from_string(ocr)
 
     assert record.num_transactions == nt
     assert record.num_records == nr
@@ -133,15 +133,15 @@ def test_assignment_end_for_avtalegiro_payment_requests(nt, nr, ta, nd1, nd2):
     nr=st.integers(min_value=0, max_value=99999999),
 )
 def test_assignment_end_for_avtalegiro_agreements(nt, nr):
-    original = netsgiro.records.AssignmentEnd(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        assignment_type=netsgiro.AssignmentType.AVTALEGIRO_AGREEMENTS,
+    original = avtalegiro.records.AssignmentEnd(
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        assignment_type=avtalegiro.AssignmentType.AVTALEGIRO_AGREEMENTS,
         num_transactions=nt,
         num_records=nr,
     )
 
     ocr = original.to_ocr()
-    record = netsgiro.records.AssignmentEnd.from_string(ocr)
+    record = avtalegiro.records.AssignmentEnd.from_string(ocr)
 
     assert record.num_transactions == nt
     assert record.num_records == nr
@@ -161,9 +161,9 @@ def test_assignment_end_for_avtalegiro_agreements(nt, nr):
 def test_transaction_amount_item_1_for_ocr_giro_transactions(
     tn, nd, a, kid, cid, dc, psn, pssn, sign
 ):
-    original = netsgiro.records.TransactionAmountItem1(
-        service_code=netsgiro.ServiceCode.OCR_GIRO,
-        transaction_type=netsgiro.TransactionType.FROM_GIRO_DEBITED_ACCOUNT,
+    original = avtalegiro.records.TransactionAmountItem1(
+        service_code=avtalegiro.ServiceCode.OCR_GIRO,
+        transaction_type=avtalegiro.TransactionType.FROM_GIRO_DEBITED_ACCOUNT,
         transaction_number=tn,
         nets_date=nd,
         amount=a,
@@ -176,7 +176,7 @@ def test_transaction_amount_item_1_for_ocr_giro_transactions(
     )
 
     ocr = original.to_ocr()
-    record = netsgiro.records.TransactionAmountItem1.from_string(ocr)
+    record = avtalegiro.records.TransactionAmountItem1.from_string(ocr)
 
     assert record.transaction_number == tn
     assert record.nets_date == nd
@@ -197,9 +197,9 @@ def test_transaction_amount_item_1_for_ocr_giro_transactions(
     kid=digits(min_size=4, max_size=25),
 )
 def test_transaction_amount_item_1_for_avtalegiro_payment_requests(tn, nd, a, kid):
-    original = netsgiro.records.TransactionAmountItem1(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        transaction_type=netsgiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
+    original = avtalegiro.records.TransactionAmountItem1(
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        transaction_type=avtalegiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
         transaction_number=tn,
         nets_date=nd,
         amount=a,
@@ -207,7 +207,7 @@ def test_transaction_amount_item_1_for_avtalegiro_payment_requests(tn, nd, a, ki
     )
 
     ocr = original.to_ocr()
-    record = netsgiro.records.TransactionAmountItem1.from_string(ocr)
+    record = avtalegiro.records.TransactionAmountItem1.from_string(ocr)
 
     assert record.transaction_number == tn
     assert record.nets_date == nd
@@ -217,16 +217,16 @@ def test_transaction_amount_item_1_for_avtalegiro_payment_requests(tn, nd, a, ki
 
 @given(tn=st.integers(min_value=0, max_value=9999999), pn=st.text(max_size=10))
 def test_transaction_amount_item_2_for_avtalegiro_payment_request(tn, pn):
-    original = netsgiro.records.TransactionAmountItem2(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        transaction_type=netsgiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
+    original = avtalegiro.records.TransactionAmountItem2(
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        transaction_type=avtalegiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
         transaction_number=tn,
         reference=None,
         payer_name=pn,
     )
 
     ocr = original.to_ocr()
-    record = netsgiro.records.TransactionAmountItem2.from_string(ocr)
+    record = avtalegiro.records.TransactionAmountItem2.from_string(ocr)
 
     assert record.transaction_number == tn
     assert record.payer_name == original.payer_name
@@ -240,9 +240,9 @@ def test_transaction_amount_item_2_for_avtalegiro_payment_request(tn, pn):
     da=digits(11),
 )
 def test_transaction_amount_item_2_for_ocr_giro_transactions(tn, ref, fn, bd, da):
-    original = netsgiro.records.TransactionAmountItem2(
-        service_code=netsgiro.ServiceCode.OCR_GIRO,
-        transaction_type=netsgiro.TransactionType.FROM_GIRO_DEBITED_ACCOUNT,
+    original = avtalegiro.records.TransactionAmountItem2(
+        service_code=avtalegiro.ServiceCode.OCR_GIRO,
+        transaction_type=avtalegiro.TransactionType.FROM_GIRO_DEBITED_ACCOUNT,
         transaction_number=tn,
         reference=ref,
         form_number=fn,
@@ -251,7 +251,7 @@ def test_transaction_amount_item_2_for_ocr_giro_transactions(tn, ref, fn, bd, da
     )
 
     ocr = original.to_ocr()
-    record = netsgiro.records.TransactionAmountItem2.from_string(ocr)
+    record = avtalegiro.records.TransactionAmountItem2.from_string(ocr)
 
     assert record.transaction_number == tn
     assert record.form_number == fn
@@ -263,15 +263,15 @@ def test_transaction_amount_item_2_for_ocr_giro_transactions(tn, ref, fn, bd, da
 
 @given(tn=st.integers(min_value=0, max_value=9999999), text=st.text(max_size=40))
 def test_transaction_amount_item_3_for_ocr_giro_transactions(tn, text):
-    original = netsgiro.records.TransactionAmountItem3(
-        service_code=netsgiro.ServiceCode.OCR_GIRO,
-        transaction_type=netsgiro.TransactionType.PURCHASE_WITH_TEXT,
+    original = avtalegiro.records.TransactionAmountItem3(
+        service_code=avtalegiro.ServiceCode.OCR_GIRO,
+        transaction_type=avtalegiro.TransactionType.PURCHASE_WITH_TEXT,
         transaction_number=tn,
         text=text,
     )
 
     ocr = original.to_ocr()
-    record = netsgiro.records.TransactionAmountItem3.from_string(ocr)
+    record = avtalegiro.records.TransactionAmountItem3.from_string(ocr)
 
     assert record.transaction_number == tn
     assert record.text == original.text
@@ -284,9 +284,9 @@ def test_transaction_amount_item_3_for_ocr_giro_transactions(tn, text):
     text=st.text(min_size=40, max_size=40),
 )
 def test_transaction_specification_for_avtalegiro_payment_request(tn, ln, cn, text):
-    original = netsgiro.records.TransactionSpecification(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        transaction_type=netsgiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
+    original = avtalegiro.records.TransactionSpecification(
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        transaction_type=avtalegiro.TransactionType.AVTALEGIRO_WITH_BANK_NOTIFICATION,
         transaction_number=tn,
         line_number=ln,
         column_number=cn,
@@ -294,7 +294,7 @@ def test_transaction_specification_for_avtalegiro_payment_request(tn, ln, cn, te
     )
 
     ocr = original.to_ocr()
-    record = netsgiro.records.TransactionSpecification.from_string(ocr)
+    record = avtalegiro.records.TransactionSpecification.from_string(ocr)
 
     assert record.transaction_number == tn
     assert record.line_number == ln
@@ -309,17 +309,17 @@ def test_transaction_specification_for_avtalegiro_payment_request(tn, ln, cn, te
     n=st.booleans(),
 )
 def test_avtalegiro_agreement(tn, kid, n):
-    original = netsgiro.records.AvtaleGiroAgreement(
-        service_code=netsgiro.ServiceCode.AVTALEGIRO,
-        transaction_type=netsgiro.TransactionType.AVTALEGIRO_AGREEMENT,
+    original = avtalegiro.records.AvtaleGiroAgreement(
+        service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+        transaction_type=avtalegiro.TransactionType.AVTALEGIRO_AGREEMENT,
         transaction_number=tn,
-        registration_type=netsgiro.AvtaleGiroRegistrationType.NEW_OR_UPDATED_AGREEMENT,
+        registration_type=avtalegiro.AvtaleGiroRegistrationType.NEW_OR_UPDATED_AGREEMENT,
         kid=kid,
         notify=n,
     )
 
     ocr = original.to_ocr()
-    record = netsgiro.records.AvtaleGiroAgreement.from_string(ocr)
+    record = avtalegiro.records.AvtaleGiroAgreement.from_string(ocr)
 
     assert record.transaction_number == tn
     assert record.kid == kid

@@ -3,35 +3,35 @@ Constants
 =========
 
 
-.. data:: netsgiro.NETS_ID
+.. data:: avtalegiro.NETS_ID
 
     Nets' data transmitter/recipient ID
 
-    >>> import netsgiro
-    >>> netsgiro.NETS_ID
+    >>> import avtalegiro
+    >>> avtalegiro.NETS_ID
     '00008080'
 
-.. autoclass:: netsgiro.ServiceCode
+.. autoclass:: avtalegiro.ServiceCode
     :members:
     :undoc-members:
     :member-order: bysource
 
-.. autoclass:: netsgiro.RecordType
+.. autoclass:: avtalegiro.RecordType
     :members:
     :undoc-members:
     :member-order: bysource
 
-.. autoclass:: netsgiro.AssignmentType
+.. autoclass:: avtalegiro.AssignmentType
     :members:
     :undoc-members:
     :member-order: bysource
 
-.. autoclass:: netsgiro.TransactionType
+.. autoclass:: avtalegiro.TransactionType
     :members:
     :undoc-members:
     :member-order: bysource
 
-.. autoclass:: netsgiro.AvtaleGiroRegistrationType
+.. autoclass:: avtalegiro.AvtaleGiroRegistrationType
     :members:
     :undoc-members:
     :member-order: bysource

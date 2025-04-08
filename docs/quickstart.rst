@@ -43,11 +43,11 @@ For the purpose of the following example we use the following input data:
 ... NY000089000000160000002000000000000000000190417000000000000000000000000000000000
 ... """.strip()
 
-:meth:`netsgiro.parse` parses the input and returns a
-:class:`netsgiro.Transmission` object:
+:meth:`avtalegiro.parse` parses the input and returns a
+:class:`avtalegiro.Transmission` object:
 
->>> import netsgiro
->>> transmission = netsgiro.parse(data)
+>>> import avtalegiro
+>>> transmission = avtalegiro.parse(data)
 >>> transmission
 Transmission(number='1091949', data_transmitter='00008080', data_recipient='00010200', date=datetime.date(2017, 4, 19))
 >>> transmission.number
@@ -86,7 +86,7 @@ agreement updates:
 
 As you can see, all updates here are for new or updated agreements. If a payer
 deletes their AvtaleGiro agreement the ``registration_type`` field will be
-:attr:`~netsgiro.AvtaleGiroRegistrationType.DELETED_AGREEMENT`.
+:attr:`~avtalegiro.AvtaleGiroRegistrationType.DELETED_AGREEMENT`.
 
 
 Building payment requests
@@ -95,28 +95,28 @@ Building payment requests
 Once you have established AvtaleGiro agreements with some payers, you can start
 creating payment requests based on your invoices.
 
-You start by creating a :class:`~netsgiro.Transmission` with Nets as the
+You start by creating a :class:`~avtalegiro.Transmission` with Nets as the
 recipient:
 
 >>> from datetime import date
 >>> from decimal import Decimal
->>> import netsgiro
->>> transmission = netsgiro.Transmission(
+>>> import avtalegiro
+>>> transmission = avtalegiro.Transmission(
 ... 	number='1703231',
 ...	data_transmitter='01234567',
-...	data_recipient=netsgiro.NETS_ID)
+...	data_recipient=avtalegiro.NETS_ID)
 
 Then, add an AvtaleGiro transaction assignment to the transmission using
-:meth:`~netsgiro.Transmission.add_assignment`:
+:meth:`~avtalegiro.Transmission.add_assignment`:
 
 >>> assignment = transmission.add_assignment(
-... 	service_code=netsgiro.ServiceCode.AVTALEGIRO,
-...	assignment_type=netsgiro.AssignmentType.TRANSACTIONS,
+... 	service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+...	assignment_type=avtalegiro.AssignmentType.TRANSACTIONS,
 ...	number='0323001',
 ...	account='99998877777')
 
 For each invoice, add a payment requests to the assignment using
-:meth:`~netsgiro.Assignment.add_payment_request`:
+:meth:`~avtalegiro.Assignment.add_payment_request`:
 
 >>> payment_request = assignment.add_payment_request(
 ...     kid='000133700501645',
@@ -127,7 +127,7 @@ For each invoice, add a payment requests to the assignment using
 ...     bank_notification=None)
 
 Finally, you can write out the OCR data using
-:meth:`~netsgiro.Transmission.to_ocr()`:
+:meth:`~avtalegiro.Transmission.to_ocr()`:
 
 >>> data = transmission.to_ocr()
 >>> print(data)
@@ -155,27 +155,27 @@ Building payment cancellations
 ==============================
 
 To cancel one or more AvtaleGiro payment requests, the process is very similar
-to creating payment requests. You start with a :class:`~netsgiro.Transmission`:
+to creating payment requests. You start with a :class:`~avtalegiro.Transmission`:
 
 >>> from datetime import date
 >>> from decimal import Decimal
->>> import netsgiro
->>> transmission = netsgiro.Transmission(
+>>> import avtalegiro
+>>> transmission = avtalegiro.Transmission(
 ... 	number='1703232',
 ...	data_transmitter='01234567',
-...	data_recipient=netsgiro.NETS_ID)
+...	data_recipient=avtalegiro.NETS_ID)
 
 Add a AvtaleGiro cancellation assignment to the transmission using
-:meth:`~netsgiro.Transmission.add_assignment`:
+:meth:`~avtalegiro.Transmission.add_assignment`:
 
 >>> assignment = transmission.add_assignment(
-... 	service_code=netsgiro.ServiceCode.AVTALEGIRO,
-...	assignment_type=netsgiro.AssignmentType.AVTALEGIRO_CANCELLATIONS,
+... 	service_code=avtalegiro.ServiceCode.AVTALEGIRO,
+...	assignment_type=avtalegiro.AssignmentType.AVTALEGIRO_CANCELLATIONS,
 ...	number='0323002',
 ...	account='99998877777')
 
 Add one or more payment cancellations to the assignment using
-:meth:`~netsgiro.Assignment.add_payment_cancellation`:
+:meth:`~avtalegiro.Assignment.add_payment_cancellation`:
 
 >>> transaction = assignment.add_payment_cancellation(
 ...     kid='000133700501645',
@@ -185,13 +185,13 @@ Add one or more payment cancellations to the assignment using
 ...     payer_name='Wonderland',
 ...     bank_notification=None)
 
-The arguments passed to :meth:`~netsgiro.Assignment.add_payment_cancellation`
+The arguments passed to :meth:`~avtalegiro.Assignment.add_payment_cancellation`
 must be identical to the arguments passed to
-:meth:`~netsgiro.Assignment.add_payment_request` when creating the payment
+:meth:`~avtalegiro.Assignment.add_payment_request` when creating the payment
 request you are now cancelling.
 
 Finally, you can write out the OCR data using
-:meth:`~netsgiro.Transmission.to_ocr()` and write the result to a file.
+:meth:`~avtalegiro.Transmission.to_ocr()` and write the result to a file.
 
 >>> data = transmission.to_ocr()
 >>> print(data)
@@ -259,11 +259,11 @@ For the purpose of the following example we use the following input data:
 ... NY000089000000200000004500000000005144900200192000000000000000000000000000000000
 ... """.strip()
 
-:meth:`netsgiro.parse` parses the input and returns a
-:class:`netsgiro.Transmission` object:
+:meth:`avtalegiro.parse` parses the input and returns a
+:class:`avtalegiro.Transmission` object:
 
->>> import netsgiro
->>> transmission = netsgiro.parse(data)
+>>> import avtalegiro
+>>> transmission = avtalegiro.parse(data)
 >>> transmission
 Transmission(number='0170031', data_transmitter='00008080', data_recipient='00010200', date=datetime.date(1992, 1, 20))
 >>> transmission.number

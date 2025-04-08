@@ -3,14 +3,14 @@ from typing import List
 
 import pytest
 
-from netsgiro import (
+from avtalegiro import (
     AssignmentType,
     AvtaleGiroRegistrationType,
     RecordType,
     ServiceCode,
     TransactionType,
 )
-from netsgiro.records import (
+from avtalegiro.records import (
     AssignmentEnd,
     AssignmentStart,
     AvtaleGiroAgreement,

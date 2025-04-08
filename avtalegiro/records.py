@@ -19,8 +19,8 @@ from typing import (
 from attr.validators import optional
 from attrs import define, field
 
-from netsgiro import RecordType, ServiceCode
-from netsgiro.converters import (
+from avtalegiro import RecordType, ServiceCode
+from avtalegiro.converters import (
     fixed_len_str,
     stripped_newlines,
     to_assignment_type,
@@ -34,12 +34,12 @@ from netsgiro.converters import (
     to_service_code,
     to_transaction_type,
 )
-from netsgiro.validators import str_of_length, str_of_max_length
+from avtalegiro.validators import str_of_length, str_of_max_length
 
 if TYPE_CHECKING:
     import datetime
 
-    from netsgiro.enums import AssignmentType, AvtaleGiroRegistrationType, TransactionType
+    from avtalegiro.enums import AssignmentType, AvtaleGiroRegistrationType, TransactionType
 
 __all__: List[str] = [
     'TransmissionStart',

@@ -27,7 +27,7 @@ def get_minimum_due_date(now: 'datetime') -> 'date':
     "Calendar days" include weekends, but not holidays, so the holidays
     library is used to offset by holidays if it's installed.
 
-    Logic is used for validation in netsgiro internally, but is also exported
+    Logic is used for validation in avtalegiro internally, but is also exported
     to be used downstream, when generating OCR files.
     """
     today = now.date()
@@ -38,7 +38,7 @@ def get_minimum_due_date(now: 'datetime') -> 'date':
 
     # Adjust for holidays, if the dependency is installed
     # - Users of the library that want this, should install
-    # - netsgiro with `pip install netsgiro[holidays]
+    # - avtalegiro with `pip install avtalegiro[holidays]
     with suppress(ImportError):
         from holidays import country_holidays
 
